@@ -1,0 +1,23 @@
+# Main menu (header). Anchors are resolved against the site root by layouts/partials/header/basic.html.
+[[main]]
+  name = "こんな時に"
+  url = "#when"
+  weight = 10
+[[main]]
+  name = "調査の内容"
+  url = "#method"
+  weight = 20
+[[main]]
+  name = "進め方"
+  url = "#flow"
+  weight = 30
+[[main]]
+  name = "料金"
+  url = "#pricing"
+  weight = 40
+[[main]]
+  name = "よくある質問"
+  url = "#faq"
+  weight = 50
+
+# Footer menu: none (same as the whystop site). The footer shows only the copyright line.

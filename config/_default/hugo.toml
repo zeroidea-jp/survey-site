@@ -1,0 +1,40 @@
+# survey site (survey.zeroidea.co.jp) — Hugo configuration. Copy of the whystop site (D008 v2: Blowfish theme), I011/D009
+theme = "blowfish"
+baseURL = "https://survey.zeroidea.co.jp/"
+title = "電波サイトサーベイ"
+defaultContentLanguage = "ja"
+enableRobotsTXT = true
+summaryLength = 0
+enableEmoji = true
+buildDrafts = false
+buildFuture = false
+disableKinds = ["RSS"]
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.162.0"
+
+[pagination]
+  pagerSize = 100
+
+[imaging]
+  anchor = "Center"
+
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = ["HTML"]
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[related]
+  threshold = 0
+  toLower = false
+  [[related.indices]]
+    name = "tags"
+    weight = 100

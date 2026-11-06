@@ -1,0 +1,6 @@
+{{/* whystop override of Blowfish's feature-grid: adds columns="2" and variant="tile" (class ws-feature-grid--tile: colors of the plain hero tile) for the method tiles. Markup otherwise identical to Blowfish v3.9.0. */}}
+{{ $columns := .Get "columns" | default "3" }}
+{{ $variant := .Get "variant" | default "" }}
+<div class="not-prose my-8 grid gap-4 sm:grid-cols-2 grid-balance {{ if eq $columns "4" }}lg:grid-cols-4 grid-balance-4{{ else if eq $columns "2" }}lg:grid-cols-2{{ else }}lg:grid-cols-3 grid-balance-3{{ end }} ws-feature-grid{{ with $variant }} ws-feature-grid--{{ . }}{{ end }}">
+  {{ .Inner }}
+</div>

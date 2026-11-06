@@ -1,0 +1,5 @@
+{{/* survey override of Blowfish's stats: adds columns="2" (two cards side by side on wide screens). Markup otherwise identical to Blowfish v3.9.0. */}}
+{{ $columns := .Get "columns" | default "3" }}
+<div class="not-prose my-10 grid gap-4 sm:grid-cols-2 grid-balance {{ if eq $columns "4" }}lg:grid-cols-4 grid-balance-4{{ else if eq $columns "2" }}lg:grid-cols-2{{ else }}lg:grid-cols-3 grid-balance-3{{ end }}">
+  {{ .Inner }}
+</div>

@@ -1,0 +1,9 @@
+{{/* survey override of Blowfish's stat: value may contain inline HTML (e.g. <small>追加</small>); plain="true" renders the value in normal weight (for "+実費"). Markup otherwise identical to Blowfish v3.9.0. */}}
+{{ $value := .Get "value" | default "0" }}
+{{ $label := .Get "label" | default "Metric" }}
+{{ $plain := .Get "plain" }}
+<div class="rounded-2xl border border-neutral-200/80 bg-white/60 p-6 text-center shadow-sm backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-900/50">
+  <p class="{{ if $plain }}text-3xl font-medium ws-stat--plain{{ else }}text-4xl font-black{{ end }} tracking-tight text-primary-600 dark:text-primary-400 ws-stat__value">{{ $value | safeHTML }}</p>
+  <p class="mt-2 font-bold text-neutral-900 dark:text-white">{{ $label | markdownify }}</p>
+  {{ with .Inner }}<div class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">{{ . | markdownify }}</div>{{ end }}
+</div>

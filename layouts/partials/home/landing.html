@@ -1,0 +1,44 @@
+{{/* whystop override of Blowfish's landing layout: hero = headline row (full width on wide screens) + two columns (lead/buttons left, figure or tiles right), then the page body.
+     Front matter: headline (HTML allowed), heroCaption, heroLead, heroButtons [{label,url,style}], heroFigure {src,alt,note,caption} and/or heroTiles [{icon,label,tint}]. */}}
+{{- $base := relLangURL "" -}}
+<article class="ws-home">
+  <section class="ws-hero{{ if not .Params.heroFigure }} ws-hero--nofigure{{ end }}">
+    <div class="ws-hero__head">
+      {{ with .Params.heroCaption }}<p class="ws-eyebrow">{{ . | markdownify }}</p>{{ end }}
+      <h1 class="ws-h1">{{ .Params.headline | default .Title | safeHTML }}</h1>
+    </div>
+    <div class="ws-hero__text">
+      {{ with .Params.heroLead }}<div class="ws-lead">{{ . | markdownify }}</div>{{ end }}
+      {{ with .Params.heroButtons }}
+        <div class="ws-hero__buttons">
+          {{ range . }}
+            {{- $u := .url | default "#" -}}
+            {{- if hasPrefix $u "#" }}{{ $u = printf "%s%s" $base $u }}{{ end -}}
+            {{ partial "cta-button.html" (dict "url" $u "label" .label "style" .style) }}
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+    {{ with .Params.heroFigure }}
+      <figure class="ws-hero__figure">
+        <img src="{{ .src | relURL }}" alt="{{ .alt }}" loading="eager" decoding="async" class="nozoom">
+        {{ with .note }}<div class="ws-hero__arrow" aria-hidden="true">▼</div><p class="ws-hero__note">{{ . | markdownify }}</p>{{ end }}
+        {{ with .caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+      </figure>
+    {{ end }}
+    {{ with .Params.heroTiles }}
+      <div class="ws-tiles" role="list">
+        {{ range . }}
+          <div class="ws-tile{{ with .tint }} ws-tile--tint{{ end }}" role="listitem">
+            <span class="ws-tile__icon">{{ partial "ws-icon.html" .icon }}</span>
+            <span class="ws-tile__label">{{ .label | markdownify }}</span>
+            {{ with .sub }}<span class="ws-tile__sub">{{ . | markdownify }}</span>{{ end }}
+          </div>
+        {{ end }}
+      </div>
+    {{ end }}
+  </section>
+  <section class="ws-body prose dark:prose-invert">
+    {{ .Content }}
+  </section>
+</article>

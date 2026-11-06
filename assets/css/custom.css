@@ -1,0 +1,286 @@
+/* whystop: overrides on top of Blowfish (plain CSS, uses Blowfish's color variables). */
+
+/* ---- header ---- */
+.ws-header-spacer { height: 5rem; }
+/* header bar: always distinguishable from the page background (light: white on grey page; dark: darker band) */
+.ws-header-bar { background: rgb(var(--color-neutral)); border-bottom: 1px solid rgb(var(--color-neutral-200)); }
+.dark .ws-header-bar { background: rgb(var(--color-neutral-900)); border-bottom-color: rgb(var(--color-neutral-700)); }
+/* light scheme surfaces (dark is untouched): page = soft grey; grey tiles = symptom/stat cards and case cards;
+   accent tiles = hero tiles and method tiles (same light-blue tone, user decision 2026-10-28) */
+html:not(.dark) { --ws-page-bg: rgb(var(--color-neutral-100)); --ws-tile-bg: rgb(var(--color-neutral-200)); --ws-tile-border: rgb(var(--color-neutral-300)); --ws-accent-tile-bg: rgb(var(--color-primary-100)); --ws-accent-tile-border: rgb(var(--color-primary-200)); }
+html:not(.dark) body { background-color: var(--ws-page-bg); }
+/* swapped 2026-10-29 (user): accent = symptom cards + price cards; grey = hero tiles, method tiles, case cards */
+html:not(.dark) .ws-body .bg-white\/60 { background-color: var(--ws-accent-tile-bg); border-color: var(--ws-accent-tile-border); }
+html:not(.dark) .ws-tile,
+html:not(.dark) .ws-feature-grid--tile .ws-feature,
+html:not(.dark) .ws-case-list__item { background-color: var(--ws-tile-bg); border-color: var(--ws-tile-border); }
+/* icon badges (light): one rule everywhere = solid primary block with a white glyph, the same language as the
+   step-1 circle, the "図解つき" badge and the buttons. Independent of the tile color underneath. */
+html:not(.dark) { --ws-mark-bg: rgb(var(--color-primary-700)); } /* marks one step darker than the buttons (primary-600) */
+html:not(.dark) .ws-tile__icon,
+html:not(.dark) .ws-feature__icon,
+html:not(.dark) .ws-case-list__icon { background-color: var(--ws-mark-bg); color: rgb(var(--color-neutral)); }
+html:not(.dark) .ws-case-list__badge,
+html:not(.dark) .ws-steps > li:first-child > span { background-color: var(--ws-mark-bg); }
+/* blue text accents (headline accent, eyebrow, "詳しく読む", price figures) use the same dark blue as the marks */
+html:not(.dark) .ws-eyebrow,
+html:not(.dark) .ws-h1 .ws-accent,
+html:not(.dark) .ws-case-list__more,
+html:not(.dark) .ws-body .text-primary-600:not(.ws-feature__icon) { color: var(--ws-mark-bg); }
+/* primary buttons: same dark blue, but clearly pressable: slight top-light gradient, inner highlight, soft drop shadow;
+   hover lightens and lifts (lift comes from the theme's hover:-translate-y-0.5) */
+html:not(.dark) a.bg-primary-600 {
+  background-color: rgb(var(--color-primary-700));
+  background-image: linear-gradient(180deg, rgb(var(--color-primary-600)) 0%, rgb(var(--color-primary-700)) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 8px 18px -10px rgba(var(--color-primary-700), 0.7);
+}
+html:not(.dark) a.bg-primary-600:hover {
+  background-image: linear-gradient(180deg, rgb(var(--color-primary-500)) 0%, rgb(var(--color-primary-600)) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 12px 22px -10px rgba(var(--color-primary-700), 0.75);
+}
+.ws-header { display: flex; align-items: center; gap: 1rem; height: 5rem; }
+.ws-brand { display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.ws-brand__mark { width: 2.5rem; height: 2.5rem; flex: none; }
+.ws-brand__name { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.01em; color: rgb(var(--color-neutral-900)); line-height: 1; }
+.ws-nav { display: none; align-items: center; gap: 1.75rem; margin-left: auto; }
+.ws-nav a { font-size: 0.95rem; font-weight: 500; color: rgb(var(--color-neutral-700)); text-decoration: none; }
+.ws-nav a:hover { color: rgb(var(--color-primary-600)); }
+.ws-header__cta { display: none; margin-left: 1.75rem; }
+.ws-header__cta a { padding: 0.6rem 1.1rem; font-size: 0.95rem; }
+.ws-mobile { margin-left: auto; display: flex; align-items: center; }
+.ws-burger svg { width: 1.6rem; height: 1.6rem; }
+.ws-mobile-nav { display: flex; flex-direction: column; gap: 1.25rem; max-width: 28rem; margin: 0 auto; }
+.ws-mobile-nav a { font-size: 1.25rem; font-weight: 600; color: rgb(var(--color-neutral-800)); text-decoration: none; }
+.ws-mobile-nav__cta { margin-top: 0.5rem; }
+.ws-mobile-nav__cta a { font-size: 1.05rem; }
+@media (min-width: 48rem) {
+  .ws-nav, .ws-header__cta { display: flex; }
+  .ws-mobile { display: none; }
+}
+.ws-brand__name, .ws-nav a, .ws-header__cta a { white-space: nowrap; }
+/* mid widths (tablet): keep the header on one line */
+@media (min-width: 48rem) and (max-width: 64rem) {
+  .ws-brand__name { font-size: 1.35rem; }
+  .ws-nav { gap: 1rem; }
+  .ws-nav a { font-size: 0.85rem; }
+  .ws-header__cta { margin-left: 1rem; }
+  .ws-header__cta a { padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+}
+
+/* ---- hero ---- */
+.ws-hero {
+  display: grid; row-gap: 1.5rem; column-gap: 2.5rem; align-items: center;
+  padding: 2.5rem 2rem 3rem; margin-top: 0.5rem;
+  border-radius: 1.5rem;
+  background: none;
+}
+/* wide screens: the headline row spans both columns so the two-line headline stays on two lines */
+@media (min-width: 64rem) {
+  .ws-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); row-gap: 2rem; padding: 3rem 2.5rem 3.5rem; }
+  .ws-hero__head { grid-column: 1 / -1; }
+  .ws-hero__text, .ws-tiles, .ws-hero__figure { align-self: start; }
+  /* tiles on the left, lead + buttons on the right (DOM order stays text -> tiles for narrow screens) */
+  .ws-tiles, .ws-hero__figure { grid-column: 1; grid-row: 2; }
+  .ws-hero__text { grid-column: 2; grid-row: 2; }
+  /* primary CTA at the right end of the button row; DOM keeps it first so it stays on top when stacked */
+  .ws-hero__buttons { flex-direction: row-reverse; justify-content: flex-end; }
+}
+.ws-hero__figure, .ws-tiles { margin-top: 0.5rem; }
+@media (min-width: 64rem) { .ws-hero__figure, .ws-tiles { margin-top: 0; } }
+@media (max-width: 40rem) { .ws-hero { padding: 1.75rem 1.25rem 2.25rem; } }
+.ws-eyebrow { margin: 0 0 1rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.04em; color: rgb(var(--color-primary-600)); }
+.ws-h1 { margin: 0; font-size: clamp(1.75rem, 3.6vw, 2.9rem); font-weight: 900; line-height: 1.25; letter-spacing: -0.01em; color: rgb(var(--color-neutral-900)); }
+.ws-h1 .ws-accent { color: rgb(var(--color-primary-600)); }
+@media (max-width: 40rem) { .ws-h1 br { display: none; } }
+.ws-lead { margin-top: 0; font-size: 1.1rem; line-height: 1.9; color: rgb(var(--color-neutral-600)); }
+.ws-lead p { margin: 0; }
+.ws-hero__buttons { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.9rem; }
+.ws-hero__figure { margin: 0; }
+.ws-hero__figure img { width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 24px 48px -24px rgba(15, 76, 129, 0.45); background: #fff; }
+.ws-hero__figure figcaption { margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.6; color: rgb(var(--color-neutral-500)); text-align: center; }
+
+/* ---- feature tiles (Blowfish feature-grid / feature, overridden in layouts/shortcodes) ---- */
+.ws-feature__icon .ws-icon { width: 1.15rem; height: 1.15rem; stroke-width: 2.1; }
+/* "tile" variant (method tiles): same colors as the plain hero tile (.ws-tile), icon and title on one row */
+.ws-feature-grid--tile .ws-feature { background: rgb(var(--color-neutral)); border-color: rgb(var(--color-neutral-200)); }
+.ws-feature-grid--tile .ws-feature__head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+.ws-feature-grid--tile .ws-feature__head :is(h2,h3,h4) { font-size: 1rem; line-height: 1.4; }
+.ws-feature-grid--tile .ws-feature__icon { margin-bottom: 0; flex: none; background: rgb(var(--color-primary-100)); color: rgb(var(--color-primary-600)); }
+.ws-feature-grid--tile .ws-feature__icon .ws-icon { width: 1.35rem; height: 1.35rem; stroke-width: 1.9; }
+.dark .ws-feature-grid--tile .ws-feature { background: rgb(var(--color-neutral-800)); border-color: rgb(var(--color-neutral-700)); }
+.dark .ws-feature-grid--tile .ws-feature__icon { background: rgba(var(--color-primary-600), 0.3); color: rgb(var(--color-primary-300)); }
+.dark .ws-feature-grid--tile .ws-feature div.text-sm { color: rgb(var(--color-neutral-300)); }
+/* per-tile tint (feature tint="true"): same colors as the tinted hero tile (.ws-tile--tint) */
+.ws-feature-grid--tile .ws-feature--tint { background: rgb(var(--color-primary-50)); border-color: rgb(var(--color-primary-100)); }
+.ws-feature-grid--tile .ws-feature--tint .ws-feature__icon { background: rgb(var(--color-neutral)); }
+.dark .ws-feature-grid--tile .ws-feature--tint { background: rgba(var(--color-primary-800), 0.45); border-color: rgba(var(--color-primary-600), 0.5); }
+.dark .ws-feature-grid--tile .ws-feature--tint .ws-feature__icon { background: rgba(var(--color-primary-500), 0.35); color: rgb(var(--color-primary-200)); }
+
+/* ---- steps (Blowfish steps/step; steps.html overridden to add .ws-steps) ---- */
+/* step 1 keeps the primary color (where the visitor is now); later steps are subdued */
+/* number badges: same rounded-square block as the icon badges; the 4px ring takes the page color (it only masks the timeline line) */
+.ws-steps > li > span { border-radius: 0.6rem; }
+html:not(.dark) .ws-steps > li > span { --tw-ring-color: var(--ws-page-bg); }
+.ws-steps > li:not(:first-child) > span { background: rgb(var(--color-neutral-300)); color: rgb(var(--color-neutral-700)); }
+.dark .ws-steps > li:not(:first-child) > span { background: rgb(var(--color-neutral-700)); color: rgb(var(--color-neutral-200)); }
+
+/* ---- body ---- */
+.ws-home .ws-body { max-width: none; margin-top: 1rem; }
+.ws-body h2 { --ws-h2-pad: 2.75rem; margin-top: 5rem; padding-top: var(--ws-h2-pad); border-top: 1px solid rgb(var(--color-neutral-200)); scroll-margin-top: 6rem; font-size: 1.8rem; line-height: 1.3; }
+/* Blowfish's hover "#" anchor is absolutely positioned at top: 0; move it down by the same padding so it lines up with the text */
+.ws-body h2 > span.absolute { top: var(--ws-h2-pad); }
+.dark .ws-body h2 { border-top-color: rgb(var(--color-neutral-700)); }
+@media (max-width: 40rem) { .ws-body h2 { --ws-h2-pad: 2rem; margin-top: 3.5rem; font-size: 1.5rem; } }
+.ws-body h2 + p { margin-top: 0.5rem; }
+.ws-body [id] { scroll-margin-top: 6rem; }
+
+/* ---- case cards (shortcode cases) ---- */
+.ws-case__dl { margin: 0.9rem 0 0; font-size: 0.875rem; line-height: 1.6; color: rgb(var(--color-neutral-600)); }
+.ws-case__dl dt { float: left; clear: left; width: 2.6em; font-weight: 700; color: rgb(var(--color-neutral-800)); }
+.ws-case__dl dd { margin: 0 0 0.55rem 2.9em; }
+.ws-case h3 a { text-decoration: none; color: inherit; }
+.ws-case h3 a:hover { color: rgb(var(--color-primary-600)); }
+
+/* ---- case page summary table ---- */
+.ws-case-summary th { white-space: nowrap; width: 9em; text-align: left; vertical-align: top; }
+
+/* ---- hero figure note (after-fix statement, kept apart from the figure) ---- */
+.ws-hero__arrow { margin: 0.35rem 0 0.1rem; text-align: center; font-size: 1.1rem; line-height: 1; color: #16a34a; }
+.ws-hero__note { margin: 0.2rem 0 0; padding: 0.55rem 0.9rem; border-radius: 0.6rem; background: #dcfce7; color: #166534; font-size: 0.9rem; font-weight: 700; line-height: 1.5; }
+
+/* ---- case list on the top page (titles only) ---- */
+.ws-case-list { display: grid; gap: 0.75rem; margin: 1.5rem 0; }
+@media (min-width: 40rem) { .ws-case-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ws-case-list__item { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem 1.2rem; border: 1px solid rgb(var(--color-neutral-200)); border-radius: 1rem; background: rgb(var(--color-neutral)); text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.ws-case-list__item:hover { border-color: rgb(var(--color-primary-300)); transform: translateY(-2px); box-shadow: 0 10px 24px -16px rgba(15,76,129,.5); }
+.ws-case-list__title { font-weight: 700; color: rgb(var(--color-neutral-900)); line-height: 1.5; }
+.ws-case-list__more { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; font-weight: 700; color: rgb(var(--color-primary-600)); }
+.ws-case-list__more svg { width: 0.85em; height: 0.85em; }
+
+.ws-case-list__footer { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: auto; padding-top: 0.25rem; }
+.ws-case-list__icons { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.ws-case-list__icon { display: inline-flex; padding: 0.35rem; border-radius: 0.6rem; background: rgb(var(--color-primary-100)); color: rgb(var(--color-primary-600)); }
+.ws-case-list__icon .ws-icon { width: 1.05rem; height: 1.05rem; }
+.dark .ws-case-list__icon { background: rgba(var(--color-primary-600), 0.3); color: rgb(var(--color-primary-300)); }
+
+.ws-case-list__item--featured { border-color: rgb(var(--color-primary-300)); background: rgb(var(--color-primary-50)); }
+.ws-case-list__lead { display: inline-flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.ws-case-list__badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.15rem 0.55rem; border-radius: 999px; background: rgb(var(--color-primary-600)); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
+.ws-case-list__badge .ws-icon { width: 0.85rem; height: 0.85rem; }
+.dark .ws-case-list__item--featured { border-color: rgba(var(--color-primary-500), 0.7); background: rgba(var(--color-primary-800), 0.35); }
+.dark .ws-case-list__badge { background: rgb(var(--color-primary-500)); }
+
+/* ---- case page: article + sidebar ---- */
+.ws-case-layout { display: grid; gap: 2.5rem; align-items: start; }
+@media (min-width: 64rem) { .ws-case-layout { grid-template-columns: minmax(0, 1fr) 17rem; } }
+.ws-case-body { max-width: none; }
+.ws-case-body > :not(.ws-fig) { max-width: 68ch; }
+.ws-case-side { position: sticky; top: 6rem; }
+.ws-case-side__nav { padding: 1.1rem 1.2rem; border: 1px solid rgb(var(--color-neutral-200)); border-radius: 1rem; background: rgb(var(--color-neutral-50)); }
+.ws-case-side__title { margin: 0 0 0.6rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; color: rgb(var(--color-neutral-500)); }
+.ws-case-side__nav ol { list-style: none; margin: 0; padding: 0; counter-reset: ws-case; font-size: 0.9rem; line-height: 1.5; }
+.ws-case-side__nav li { counter-increment: ws-case; display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.6rem 0.25rem; border-top: 1px solid rgb(var(--color-neutral-200)); }
+.ws-case-side__nav li:first-child { border-top: 0; }
+.ws-case-side__nav li::before { content: counter(ws-case); flex: none; width: 1.4rem; height: 1.4rem; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; background: rgb(var(--color-neutral-200)); color: rgb(var(--color-neutral-700)); margin-top: 0.05rem; }
+.ws-case-side__nav li.is-current { background: rgb(var(--color-primary-50)); border-radius: 0.6rem; margin: 0 -0.25rem; padding-left: 0.5rem; padding-right: 0.5rem; border-top-color: transparent; }
+.ws-case-side__nav li.is-current + li { border-top-color: transparent; }
+.ws-case-side__nav li.is-current::before { background: rgb(var(--color-primary-600)); color: #fff; }
+.ws-case-side__nav li a { color: rgb(var(--color-neutral-700)); text-decoration: none; }
+.ws-case-side__nav li a:hover { color: rgb(var(--color-primary-600)); }
+.ws-case-side__nav li.is-current a { color: rgb(var(--color-primary-700)); font-weight: 700; }
+.ws-case-side__home { margin: 0.9rem 0 0; font-size: 0.85rem; }
+.ws-case-pager { display: flex; justify-content: space-between; gap: 1.5rem; margin: 4rem 0 2rem; padding: 1.5rem 0; border-top: 1px solid rgb(var(--color-neutral-200)); border-bottom: 1px solid rgb(var(--color-neutral-200)); }
+.ws-case-pager__link { max-width: 48%; font-weight: 700; color: rgb(var(--color-neutral-800)); text-decoration: none; line-height: 1.45; }
+.ws-case-pager__link span { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: rgb(var(--color-neutral-500)); margin-bottom: 0.2rem; }
+.ws-case-pager__link--next { margin-left: auto; text-align: right; }
+.ws-case-pager__link:hover { color: rgb(var(--color-primary-600)); }
+
+/* ---- hero tiles (icon summary of the method, in workflow order) ---- */
+.ws-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.ws-tile { display: flex; flex-direction: row; align-items: center; gap: 0.8rem; padding: 0.9rem 1rem; border: 1px solid rgb(var(--color-neutral-200)); border-radius: 1rem; background: rgb(var(--color-neutral)); min-height: 4.6rem; }
+.ws-tile--tint { background: rgb(var(--color-primary-50)); border-color: rgb(var(--color-primary-100)); }
+.ws-tile__icon { display: inline-flex; flex: none; padding: 0.5rem; border-radius: 0.75rem; background: rgb(var(--color-primary-100)); color: rgb(var(--color-primary-600)); }
+.ws-tile--tint .ws-tile__icon { background: rgb(var(--color-neutral)); }
+.ws-tile__icon .ws-icon { width: 1.45rem; height: 1.45rem; }
+.ws-tile__label { font-size: 0.95rem; font-weight: 700; color: rgb(var(--color-neutral-900)); line-height: 1.4; }
+@media (max-width: 40rem) {
+  .ws-tiles { gap: 0.5rem; }
+  .ws-tile { padding: 0.65rem 0.7rem; min-height: 0; gap: 0.55rem; }
+  .ws-tile__label { font-size: 0.82rem; }
+}
+/* wide screens: one tile per row beside the headline (workflow reads top to bottom) */
+@media (min-width: 64rem) {
+  .ws-tiles { grid-template-columns: minmax(0, 1fr); gap: 0.55rem; }
+  .ws-tile { min-height: 0; padding: 0.7rem 1rem; }
+  .ws-tile__icon { padding: 0.45rem; }
+  .ws-tile__icon .ws-icon { width: 1.3rem; height: 1.3rem; }
+}
+
+/* ---- figure with notes (case pages) ---- */
+.ws-fig { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; margin: 1.75rem 0 2.25rem; }
+.ws-fig__figure { margin: 0; }
+.ws-fig__figure img { width: 100%; height: auto; border-radius: 1rem; border: 1px solid rgb(var(--color-neutral-200)); background: #fff; }
+.ws-fig__figure figcaption { margin-top: 0.5rem; font-size: 0.8rem; color: rgb(var(--color-neutral-500)); }
+.ws-fig__notes { font-size: 0.95rem; }
+.ws-fig__notes ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgb(var(--color-neutral-200)); }
+.ws-fig__notes li { margin: 0; padding: 0.65rem 0.25rem; border-bottom: 1px solid rgb(var(--color-neutral-200)); display: grid; grid-template-columns: 11.5em minmax(0, 1fr); gap: 0.25rem 1rem; align-items: start; }
+.ws-fig__notes li > strong { color: rgb(var(--color-primary-700)); }
+.ws-fig__notes li::marker { content: none; }
+@media (max-width: 40rem) { .ws-fig__notes li { grid-template-columns: 1fr; } }
+.dark .ws-fig__notes ul, .dark .ws-fig__notes li { border-color: rgb(var(--color-neutral-700)); }
+.dark .ws-fig__notes li > strong { color: rgb(var(--color-primary-300)); }
+.ws-fig--after .ws-fig__figure img { border-color: #bbf7d0; }
+
+/* ---- case page: icons of the steps that applied (same icon set as the hero tiles) ---- */
+.ws-methods { margin: 1rem 0 1.75rem; }
+.ws-methods__title { margin: 0 0 0.45rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; color: rgb(var(--color-neutral-500)); }
+.ws-methods__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ws-methods__item { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.35rem 0.6rem; border: 1px solid rgb(var(--color-neutral-200)); border-radius: 999px; background: rgb(var(--color-neutral)); }
+.ws-methods--icons .ws-methods__item { padding: 0.4rem; }
+.ws-methods__icon { display: inline-flex; color: rgb(var(--color-primary-600)); }
+.ws-methods__icon .ws-icon { width: 1.15rem; height: 1.15rem; }
+.ws-methods__label { font-size: 0.8rem; font-weight: 700; color: rgb(var(--color-neutral-800)); white-space: nowrap; }
+.dark .ws-methods__title { color: rgb(var(--color-neutral-400)); }
+.dark .ws-methods__item { background: rgb(var(--color-neutral-800)); border-color: rgb(var(--color-neutral-700)); }
+.dark .ws-methods__icon { color: rgb(var(--color-primary-300)); }
+.dark .ws-methods__label { color: rgb(var(--color-neutral-200)); }
+
+/* ---- dark theme (Blowfish adds .dark on <html>) ---- */
+.dark .ws-brand__name { color: rgb(var(--color-neutral-100)); }
+.dark .ws-nav a { color: rgb(var(--color-neutral-300)); }
+.dark .ws-nav a:hover { color: rgb(var(--color-primary-400)); }
+.dark .ws-mobile-nav a { color: rgb(var(--color-neutral-200)); }
+.dark .ws-eyebrow { color: rgb(var(--color-primary-400)); }
+.dark .ws-h1 { color: #fff; }
+.dark .ws-h1 .ws-accent { color: rgb(var(--color-primary-400)); }
+.dark .ws-lead { color: rgb(var(--color-neutral-300)); }
+.dark .ws-tile { background: rgb(var(--color-neutral-800)); border-color: rgb(var(--color-neutral-700)); }
+.dark .ws-tile--tint { background: rgba(var(--color-primary-800), 0.45); border-color: rgba(var(--color-primary-600), 0.5); }
+.dark .ws-tile__icon { background: rgba(var(--color-primary-600), 0.3); color: rgb(var(--color-primary-300)); }
+.dark .ws-tile--tint .ws-tile__icon { background: rgba(var(--color-primary-500), 0.35); }
+.dark .ws-tile__label { color: rgb(var(--color-neutral-100)); }
+.dark .ws-hero__figure img { box-shadow: none; }
+.dark .ws-hero__note { background: rgba(22, 163, 74, 0.2); color: #86efac; }
+.dark .ws-case-list__item { background: rgb(var(--color-neutral-800)); border-color: rgb(var(--color-neutral-700)); }
+.dark .ws-case-list__item:hover { border-color: rgb(var(--color-primary-500)); }
+.dark .ws-case-list__title { color: rgb(var(--color-neutral-100)); }
+.dark .ws-case-list__more { color: rgb(var(--color-primary-400)); }
+.dark .ws-case-side__nav { background: rgb(var(--color-neutral-800)); border-color: rgb(var(--color-neutral-700)); }
+.dark .ws-case-side__title { color: rgb(var(--color-neutral-400)); }
+.dark .ws-case-side__nav li a { color: rgb(var(--color-neutral-300)); }
+.dark .ws-case-side__nav li a:hover { color: rgb(var(--color-primary-400)); }
+.dark .ws-case-side__nav li.is-current a { color: rgb(var(--color-primary-300)); }
+.dark .ws-case-side__nav li { border-top-color: rgb(var(--color-neutral-700)); }
+.dark .ws-case-side__nav li::before { background: rgb(var(--color-neutral-700)); color: rgb(var(--color-neutral-200)); }
+.dark .ws-case-side__nav li.is-current { background: rgba(var(--color-primary-800), 0.45); }
+.dark .ws-case-side__nav li.is-current::before { background: rgb(var(--color-primary-500)); }
+.dark .ws-case-pager { border-color: rgb(var(--color-neutral-700)); }
+.dark .ws-case-pager__link { color: rgb(var(--color-neutral-200)); }
+.dark .ws-case-pager__link span { color: rgb(var(--color-neutral-400)); }
+.dark .ws-case-pager__link:hover { color: rgb(var(--color-primary-400)); }
+.dark .ws-fig__figure img { border-color: rgb(var(--color-neutral-700)); }
+.dark .ws-fig__figure figcaption { color: rgb(var(--color-neutral-400)); }
+
+/* ---- price cards (stat shortcode override) ---- */
+.ws-stat__value small { font-size: 0.55em; font-weight: 700; }
+.ws-stat--plain { line-height: 2.5rem; }

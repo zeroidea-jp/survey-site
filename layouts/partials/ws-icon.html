@@ -1,0 +1,27 @@
+{{- /* Simple stroke icons for whystop tiles. Usage: partial "ws-icon.html" "wifi" */ -}}
+{{- $n := . -}}
+<svg class="ws-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{{- if eq $n "wifi" -}}
+  <path d="M2.5 8.5a14 14 0 0 1 19 0"/><path d="M5.5 12a9.5 9.5 0 0 1 13 0"/><path d="M8.6 15.4a5 5 0 0 1 6.8 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/>
+{{- else if eq $n "network" -}}
+  <rect x="3" y="4" width="7" height="5" rx="1"/><rect x="14" y="4" width="7" height="5" rx="1"/><rect x="8.5" y="15" width="7" height="5" rx="1"/><path d="M6.5 9v2.5h11V9M12 11.5V15"/>
+{{- else if eq $n "flag" -}}
+  <path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>
+{{- else if eq $n "clock" -}}
+  <circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>
+{{- else if eq $n "split" -}}
+  <path d="M4 12h5"/><path d="M9 12c3 0 3-5 6-5h5"/><path d="M9 12c3 0 3 5 6 5h5"/><path d="M17 4.5 20 7l-3 2.5"/><path d="M17 14.5 20 17l-3 2.5"/>
+{{- else if eq $n "report" -}}
+  <path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h5M9.5 15.5h5"/>
+{{- else if eq $n "pin" -}}
+  <path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>
+{{- else if eq $n "chart" -}}
+  <path d="M4 19h16"/><path d="M5 15l4-6 4 4 3-5 3 3"/>
+{{- else if eq $n "video" -}}
+  <rect x="3" y="7" width="13" height="10" rx="2"/><path d="m16 10.5 5-2.5v8l-5-2.5z"/>
+{{- else if eq $n "users" -}}
+  <circle cx="9" cy="8" r="3.2"/><path d="M2.5 19.5a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.5a5 5 0 0 1 6 5"/>
+{{- else -}}
+  <circle cx="12" cy="12" r="8.5"/>
+{{- end -}}
+</svg>

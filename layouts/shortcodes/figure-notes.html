@@ -1,0 +1,8 @@
+{{/* Figure (left) + notes (right, Markdown inner). Params: src, alt, caption, after="true" for the green variant. */}}
+<div class="not-prose ws-fig{{ if eq (.Get "after") "true" }} ws-fig--after{{ end }}">
+  <figure class="ws-fig__figure">
+    <img src="{{ .Get "src" | relURL }}" alt="{{ .Get "alt" }}" loading="lazy" decoding="async" class="nozoom">
+    {{ with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+  </figure>
+  {{ with .Inner }}<div class="ws-fig__notes prose dark:prose-invert">{{ . | markdownify }}</div>{{ end }}
+</div>

@@ -1,0 +1,15 @@
+locale = "ja"
+label = "日本語"
+weight = 1
+title = "電波サイトサーベイ"
+
+[params]
+  displayName = "JA"
+  isoCode = "ja"
+  rtl = false
+  dateFormat = "2006年1月2日"
+  description = "導入前の電波環境調査 (サイトサーベイ)。使う予定の無線が、その現場で使えるかを 1〜2 日で測って報告します (zeroidea)"
+  copyright = "© 2026 zeroidea"
+
+[params.author]
+  name = "電波サイトサーベイ"

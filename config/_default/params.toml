@@ -13,7 +13,7 @@ autoSwitchAppearance = false
 # URL of the Google Form. Must stay above the first [table] so it is a top-level param. Empty = button shows 準備中.
 homeTitle = "電波サイトサーベイ ｜ 導入前の電波環境調査を現地で即日解析" # survey site: <title> of the home page (user decision 2026-11-06). The header shows site.Title
 logoFile = "images/logo-green.svg" # survey site: logo mark = whystop radio-b2a in the site accent (user decision 2026-11-06, I011 OQ2)
-contactFormUrl = "" # survey site: Google Form (I011 item 2, user creates). Empty = button shows 準備中
+contactFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdDbPDXVn9yrPJV_qW73cah_EE6GB-AYTPZd5BvYU5Q0qMZkw/viewform" # survey site: Google Form (I011 item 2, created by the user 2026-11-07). Empty = button shows 準備中
 
 enableA11y = false
 enableSearch = false
